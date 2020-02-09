@@ -24,21 +24,29 @@ If you start the app everything is organized in buttons that are "language agnos
 
 ## Feature TODOs
 
-- backup of HiveDB
+- ~~backup of HiveDB~~ done but only for Android (iOS does not get the "getExternalStorageDirectory() from path_provider)
 - add charts for monthly statistics
 - add maintenance widgets (shout out to: Riccardo :D)
 - optional: add some more languages that can be set in the settings menu
 
-## Preview (amber)
+## Preview (red)
 
-- Main screen; color amber
+- Main screen
 
 ![Main Screen](screenshots/main-screen.png)
 
- - Edit screen (add entry); color amber
+ - Edit screen (add entry)
 
-![Edit Screen](screenshots/edit-screen.png)
+![Edit Screen](screenshots/entry-screen.png)
 
-- Settings screen; color amber
+- Settings screen
 
 ![Settings Screen](screenshots/settings-screen.png)
+
+ - Info screen
+
+ ![Info Screen](screenshots/info-screen.png)
+
+ - Database edit screen
+
+ ![DB edit Screen](screenshots/edit-db-screen.png)

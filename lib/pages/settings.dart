@@ -2,6 +2,7 @@ import 'package:balthasar/box_functions/bf_settings.dart';
 import 'package:balthasar/box_functions/bf_startpage.dart';
 import 'package:flutter/material.dart';
 
+
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
@@ -9,6 +10,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   String profile = getProfilename();
+  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,7 +34,9 @@ class _SettingsState extends State<Settings> {
                     child: TextField(
                       style: TextStyle(color: Colors.white),
                       obscureText: false,
-                      onSubmitted: (String prf) {setProfilename(prf);},
+                      onSubmitted: (String prf) {
+                        setProfilename(prf);
+                      },
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         labelStyle: TextStyle(color: Colors.white),
@@ -41,7 +45,9 @@ class _SettingsState extends State<Settings> {
                       ),
                     )),
                 FlatButton.icon(
-                  onPressed: () { Navigator.pushNamed(context, '/dblist'); },
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/dblist');
+                  },
                   color: Colors.grey[900],
                   icon: Icon(
                     Icons.menu,
@@ -51,7 +57,23 @@ class _SettingsState extends State<Settings> {
                     'Einträge (Database)',
                     style: TextStyle(color: getTheme()),
                   ),
-                )
+                ),
+                SizedBox(height: 20),
+                FlatButton.icon(
+                  onPressed: (){
+                    print('Calling Backup');
+                    createBackup(context);
+                  },
+                  color: Colors.grey[900],
+                  icon: Icon(
+                    Icons.save_alt,
+                    color: getTheme(),
+                  ),
+                  label: Text(
+                    'Backup',
+                    style: TextStyle(color: getTheme()),
+                  ),
+                ),
               ],
             ),
           ),
