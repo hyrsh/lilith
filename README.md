@@ -26,3 +26,17 @@ If you start the app everything is organized in buttons that are "language agnos
 - backup of HiveDB
 - add charts for monthly statistics
 - add maintenance widgets (shout out to: Riccardo :D)
+
+## Preview (amber)
+
+- Main screen; color amber
+
+![Main Screen](screenshots/main-screen.png)
+
+ - Edit screen (add entry); color amber
+
+![Edit Screen](screenshots/edit-screen.png)
+
+- Settings screen; color amber
+
+![Settings Screen](screenshots/settings-screen.png)
