@@ -11,6 +11,7 @@ It is powered by HiveDB, which is a charm to work with.
  - None of the code is "perfect" and far from done
  - I am open to any improvement, but I have very limited time
  - This repo is actually just for me but if someone wants to run the app: you are welcome to do so :)
+ - I just created some dummy backgrounds because I do not own any rights to car brand logos and vehicle designs, just replace the round shape with your logo of choice and the wireframe with an actual model
 
 ## Basic usage
 
@@ -26,6 +27,7 @@ If you start the app everything is organized in buttons that are "language agnos
 - backup of HiveDB
 - add charts for monthly statistics
 - add maintenance widgets (shout out to: Riccardo :D)
+- optional: add some more languages that can be set in the settings menu
 
 ## Preview (amber)
 
