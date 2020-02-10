@@ -3,6 +3,8 @@
 The app was developed out of boredom and some laziness. I just wanted to keep track of some basic statistics of my car.
 Since I hate all the hyper-connected apps that need a sh*tload of permissions, I designed this one to be pure "offline".
 
+I kept an eye on performance ;)
+
 It is powered by HiveDB, which is a charm to work with.
 
 ## Important information
@@ -17,16 +19,25 @@ It is powered by HiveDB, which is a charm to work with.
 
 If you start the app everything is organized in buttons that are "language agnostic".
 
-- the purpose of this app is to keep track of money, gas and distance so the biggest button is to set this entry every time you fill up
-- the lower middle button with the "information icon" is to see basic statistics about your entries
-- on the lower right you can change colors or go to settings
-- the settings provide a license plate text field (since I wanted that displayed on my main screen) and a possibility to change your entered data (in case you messed up or else)
+- Main screen
+  -  Add entry (gas, spent money, distance)
+  - Add maintenance date
+  - See statistics
+  - Go to settings
+- Settings screen
+  - Set license plate no. (I wanted it displayed on the main screen)
+  - See general entries for editing/deleting
+  - See maintenance entries for editing/deleting
+  - Change colors (_amber, blue, white, green, red_)
+  - Create a backup
+    - the backup file can only be created on Android (thanks Apple), due to the path_provider plugin
+    - the file gets saved to your internal data on: android/data/com.example.balthasar/files/lilith_backup_[timestamp].csv
 
 ## Feature TODOs
 
 - ~~backup of HiveDB~~ done but only for Android (iOS does not get the "getExternalStorageDirectory() from path_provider)
 - add charts for monthly statistics
-- add maintenance widgets (shout out to: Riccardo :D)
+- ~~add maintenance widgets~~ (shout out to: Riccardo :D)
 - optional: add some more languages that can be set in the settings menu
 
 ## Preview (red)
