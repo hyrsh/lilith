@@ -10,15 +10,15 @@ const baseBox = 'base';
 const xcBox = 'indexchange';
 const mt = 'maintenance';
 
-class EntryPage extends StatefulWidget {
+class MaintEntryPage extends StatefulWidget {
   @override
-  _EntryPageState createState() => _EntryPageState();
+  _MaintEntryPageState createState() => _MaintEntryPageState();
 }
 
-class _EntryPageState extends State<EntryPage> {
+class _MaintEntryPageState extends State<MaintEntryPage> {
 
-  TextEditingController priceController = new TextEditingController();
-  TextEditingController volumeController = new TextEditingController();
+  TextEditingController dateController = new TextEditingController();
+  TextEditingController descrController = new TextEditingController();
   TextEditingController distanceController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _EntryPageState extends State<EntryPage> {
             children: <Widget>[
               Container(
                   color: Colors.black,
-                  child: Text('Eintrag hinzufügen',
+                  child: Text('Wartung hinzufügen',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -43,19 +43,13 @@ class _EntryPageState extends State<EntryPage> {
               Container(
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
-                  controller: priceController,
-                  keyboardType: TextInputType.numberWithOptions(
-                    signed: false,
-                    decimal: true,
-                  ),
-                  inputFormatters: [
-                    WhitelistingTextInputFormatter(new RegExp(r'[0-9\.]'))
-                  ],
+                  controller: dateController,
+                  keyboardType: TextInputType.datetime,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: getTheme()),
                     ),
-                    labelText: 'Preis in € (z.B. 13.37)',
+                    labelText: 'Datum',
                     labelStyle: TextStyle(color: Colors.grey),
                   ),
                 ),
@@ -64,19 +58,13 @@ class _EntryPageState extends State<EntryPage> {
               Container(
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
-                  controller: volumeController,
-                  keyboardType: TextInputType.numberWithOptions(
-                    signed: false,
-                    decimal: true,
-                  ),
-                  inputFormatters: [
-                    WhitelistingTextInputFormatter(new RegExp(r'[0-9\.]'))
-                  ],
+                  controller: descrController,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: getTheme()),
                     ),
-                    labelText: 'Menge in L (z.B. 47.11)',
+                    labelText: 'Beschreibung',
                     labelStyle: TextStyle(color: Colors.grey),
                   ),
                 ),
@@ -86,13 +74,12 @@ class _EntryPageState extends State<EntryPage> {
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   controller: distanceController,
-                  keyboardType: TextInputType.numberWithOptions( signed: false, decimal: true,),
-                  inputFormatters: [WhitelistingTextInputFormatter(new RegExp(r'[0-9\.]'))],
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: getTheme()),
                     ),
-                    labelText: 'Kilometer in km (z.B. 17345.11)',
+                    labelText: 'Kilometerzahl',
                     labelStyle: TextStyle(color: Colors.grey),
                   ),
                 ),
@@ -100,7 +87,7 @@ class _EntryPageState extends State<EntryPage> {
               SizedBox(height: 10),
               FlatButton(
                 onPressed: () { 
-                  sendData(priceController.text, volumeController.text, distanceController.text);
+                  sendDataMaint(dateController.text, distanceController.text, descrController.text);
                   Navigator.pop(context);
                    },
                 color: Colors.grey[900],

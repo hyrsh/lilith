@@ -10,35 +10,32 @@ const baseBox = 'base';
 const xcBox = 'indexchange';
 const mt = 'maintenance';
 
-class DbEdit extends StatefulWidget {
+class MaintEdit extends StatefulWidget {
   @override
-  _DbEditState createState() => _DbEditState();
+  _MaintEditState createState() => _MaintEditState();
 }
 
-class _DbEditState extends State<DbEdit> {
+class _MaintEditState extends State<MaintEdit> {
 
-  static String price, volume, distance, date;
+  static String date, description, distance;
 
   @override
   void initState(){
     super.initState();
     print('editing requested');
-    date = getIndexedData(1);
+    date = getIndexedMaintData(1);
     print('editing date: $date');
-    price = getIndexedData(2);
-    print('editing price: $price');
-    volume = getIndexedData(3);
-    print('editing volume: $volume');
-    distance = getIndexedData(4);
+    description = getIndexedMaintData(2);
+    print('editing description: $description');
+    distance = getIndexedMaintData(3);
     print('editing distance: $distance');
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController priceController = new TextEditingController(text: price);
-    TextEditingController volumeController = new TextEditingController(text: volume);
-    TextEditingController distanceController = new TextEditingController(text: distance);
     TextEditingController dateController = new TextEditingController(text: date);
+    TextEditingController descriptionController = new TextEditingController(text: description);
+    TextEditingController distanceController = new TextEditingController(text: distance);
     return Stack(
       children: <Widget>[
         Positioned.fill(
@@ -61,69 +58,8 @@ class _DbEditState extends State<DbEdit> {
                 Container(
                   child: TextFormField(
                     style: TextStyle(color: Colors.white),
-                    controller: priceController,
-                    keyboardType: TextInputType.numberWithOptions(
-                      signed: false,
-                      decimal: true,
-                    ),
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter(new RegExp(r'[0-9\.]'))
-                    ],
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: getTheme()),
-                      ),
-                      labelText: 'Preis ändern',
-                      labelStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Container(
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    controller: volumeController,
-                    keyboardType: TextInputType.numberWithOptions(
-                      signed: false,
-                      decimal: true,
-                    ),
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter(new RegExp(r'[0-9\.]'))
-                    ],
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: getTheme()),
-                      ),
-                      labelText: 'Menge ändern',
-                      labelStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Container(
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    controller: distanceController,
-                    keyboardType: TextInputType.numberWithOptions( signed: false, decimal: true,),
-                    inputFormatters: [WhitelistingTextInputFormatter(new RegExp(r'[0-9\.]'))],
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: getTheme()),
-                      ),
-                      labelText: 'Kilometer ändern:',
-                      labelStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Container(
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
                     controller: dateController,
-                    keyboardType: TextInputType.datetime,
-                    // inputFormatters: [
-                    //   WhitelistingTextInputFormatter(new RegExp(r'[0-9.:-]'))
-                    // ],
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: getTheme()),
@@ -133,10 +69,40 @@ class _DbEditState extends State<DbEdit> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10.0),
+                Container(
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    controller: descriptionController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: getTheme()),
+                      ),
+                      labelText: 'Beschreibung ändern',
+                      labelStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Container(
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    controller: distanceController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: getTheme()),
+                      ),
+                      labelText: 'Kilometer ändern:',
+                      labelStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 10),
                 FlatButton(
                   onPressed: () { 
-                    updateData(dateController.text, priceController.text, volumeController.text, distanceController.text);
+                    updateDataMaint(dateController.text, descriptionController.text, distanceController.text);
                     Navigator.pop(context);
                      },
                   color: Colors.grey[900],

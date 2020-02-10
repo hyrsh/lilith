@@ -2,6 +2,13 @@ import 'package:balthasar/box_functions/bf_infopage.dart';
 import 'package:balthasar/box_functions/bf_startpage.dart';
 import 'package:flutter/material.dart';
 
+//Boxes for Hive
+const resultBox = 'results';
+const settingsBox = 'settings';
+const baseBox = 'base';
+const xcBox = 'indexchange';
+const mt = 'maintenance';
+
 
 class InfoPage extends StatefulWidget {
   @override

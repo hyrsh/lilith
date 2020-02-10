@@ -1,6 +1,10 @@
+import 'package:balthasar/obj_definition/maintenance.dart';
 import 'package:balthasar/pages/dbedit.dart';
 import 'package:balthasar/pages/dblist.dart';
 import 'package:balthasar/pages/infopage.dart';
+import 'package:balthasar/pages/maintedit.dart';
+import 'package:balthasar/pages/maintentry.dart';
+import 'package:balthasar/pages/maintlist.dart';
 import 'package:flutter/material.dart';
 import 'package:balthasar/pages/startpage.dart';
 import 'package:balthasar/loading.dart';
@@ -15,17 +19,20 @@ const resultBox = 'results';
 const settingsBox = 'settings';
 const baseBox = 'base';
 const xcBox = 'indexchange';
+const mt = 'maintenance';
 
 void main() async{
   //Hive start that MUST be initialized in the main()
   await Hive.initFlutter();
   //Hive register baseinfo class as adapter
   Hive.registerAdapter(BaseinfoAdapter());
+  Hive.registerAdapter(MaintenanceAdapter());
   //open boxes globally (maybe insecure?), compaction strategy is for an automated "clean up" to keep appended keys under a certain limit (50)
   await Hive.openBox('$settingsBox', compactionStrategy: (entries, deletedEntries) {return deletedEntries > 50;}); //storing settings
   await Hive.openBox('$resultBox', compactionStrategy: (entries, deletedEntries) {return deletedEntries > 50;}); //storing calculated results (importance increases later on)
   await Hive.openBox('$baseBox', compactionStrategy: (entries, deletedEntries) {return deletedEntries > 50;}); //stores the main data (your entries)
   await Hive.openBox('$xcBox', compactionStrategy: (entries, deletedEntries) {return deletedEntries > 50;}); //exchanging indices between widgets (maybe there is a more clever solution)
+  await Hive.openBox('$mt', compactionStrategy: (entries, deletedEntries) {return deletedEntries > 50;}); //stores the maintenance entries
   
   runApp(MaterialApp(
     routes: {
@@ -36,6 +43,9 @@ void main() async{
       '/dblist': (context) => DbList(), //on settings page the "view database" page
       '/dbedit': (context) => DbEdit(), //in the "view database" page the "edit" button page
       '/info': (context) => InfoPage(), //info page
+      '/maintentry': (context) => MaintEntryPage(), //entry page for maintenance
+      '/maintlist': (context) => MaintList(), //list entered maintenance
+      '/maintedit': (context) => MaintEdit(), //edit entered maintenance
 
     },
   ));

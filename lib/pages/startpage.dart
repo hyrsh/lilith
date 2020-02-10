@@ -6,9 +6,12 @@ import 'package:hive/hive.dart';
 
 import 'package:balthasar/box_functions/bf_startpage.dart';
 
+//Boxes for Hive
 const resultBox = 'results';
 const settingsBox = 'settings';
 const baseBox = 'base';
+const xcBox = 'indexchange';
+const mt = 'maintenance';
 
 class StartPage extends StatefulWidget {
   @override
@@ -44,7 +47,7 @@ class _StartPageState extends State<StartPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 80),
+              SizedBox(height: 120),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -111,6 +114,22 @@ class _StartPageState extends State<StartPage> {
                   )),
                 ),
               ),
+              SizedBox(height: 30,),
+              Container(
+                child: Center(
+                  child: Center(
+                      child: FlatButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/maintentry');
+                    },
+                    child: Icon(
+                      Icons.build,
+                      color: getTheme(),
+                      size: 45,
+                    ),
+                  )),
+                ),
+              ),
             ],
           ),
           Container(
@@ -141,31 +160,6 @@ class _StartPageState extends State<StartPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    FlatButton(
-                        onPressed: () {
-                          var bx = Hive.box('$settingsBox');
-                          dynamic cur = bx.get('background');
-                          if (cur == 'assets/background-amber.png') {
-                            bx.put('background', 'assets/background-blue.png');
-                          }
-                          if (cur == 'assets/background-blue.png') {
-                            bx.put('background', 'assets/background-red.png');
-                          }
-                          if (cur == 'assets/background-red.png') {
-                            bx.put('background', 'assets/background-white.png');
-                          }
-                          if (cur == 'assets/background-white.png') {
-                            bx.put('background', 'assets/background-green.png');
-                          }
-                          if (cur == 'assets/background-green.png') {
-                            bx.put('background', 'assets/background-amber.png');
-                          }
-                          setState(() {});
-                        },
-                        child: Icon(
-                          Icons.colorize,
-                          color: getTheme(),
-                        )),
                     FlatButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/settings');

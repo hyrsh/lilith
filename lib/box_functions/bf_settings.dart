@@ -2,13 +2,17 @@ import 'dart:io';
 
 import 'package:balthasar/box_functions/bf_startpage.dart';
 import 'package:balthasar/obj_definition/base.dart';
+import 'package:balthasar/obj_definition/maintenance.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
+//Boxes for Hive
 const resultBox = 'results';
 const settingsBox = 'settings';
 const baseBox = 'base';
+const xcBox = 'indexchange';
+const mt = 'maintenance';
 
 String getProfilename() {
   var box = Hive.box('settings');
@@ -29,11 +33,14 @@ void setProfilename(String name) {
 void createBackup(BuildContext context) {
   var box = Hive.box('$baseBox');
   var items = box.length;
+  var boxMaint = Hive.box('$mt');
+  var itemsMaint = boxMaint.length;
   DateTime date = DateTime.now().toLocal();
   String fileDate = date.year.toString()+date.month.toString()+date.day.toString();
   String fileName = 'lilith_backup_'+fileDate+'.csv';
   String formattedOutput = 'Lilith application backup from $date\n';
   String hDate, hPrice, hVolume, hDistance;
+  String mDate, mDistance, mDescr;
 
   for (var i = 0; i < items; i++) {
     var buf = box.getAt(i) as Baseinfo;
@@ -42,6 +49,16 @@ void createBackup(BuildContext context) {
     hVolume = buf.volume.toString();
     hDistance = buf.distance.toString();
     formattedOutput += hDate+', '+hPrice+' €, '+hVolume+' L, '+hDistance+' km\n';
+  }
+
+  formattedOutput += '\nEingetragene Wartungen:\n';
+
+  for (var i = 0; i < itemsMaint; i++) {
+    var buf = boxMaint.getAt(i) as Maintenance;
+    mDate = buf.plannedDate;
+    mDistance = buf.atDistance;
+    mDescr = buf.description;
+    formattedOutput += mDate+', '+mDistance+', '+mDescr+'\n';
   }
 
   _backupNote(context, fileName);
@@ -58,7 +75,7 @@ void _write(String data, String fileName) async {
 Future<void> _backupNote(BuildContext context, String fileName) async {
   return showDialog<void>(
     context: context,
-    barrierDismissible: false, // user must tap button!
+    barrierDismissible: false, // force to tap
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Backup done!', style: TextStyle(color: Colors.white)),
@@ -66,7 +83,7 @@ Future<void> _backupNote(BuildContext context, String fileName) async {
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text('Data written to:\n$fileName', style: TextStyle(color: getTheme())),
+              Text('Data written to:\n - $fileName', style: TextStyle(color: getTheme())),
             ],
           ),
         ),

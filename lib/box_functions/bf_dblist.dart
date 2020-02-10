@@ -1,12 +1,20 @@
 import 'package:balthasar/box_functions/bf_entry.dart';
 import 'package:hive/hive.dart';
 
+//Boxes for Hive
 const resultBox = 'results';
 const settingsBox = 'settings';
 const baseBox = 'base';
+const xcBox = 'indexchange';
+const mt = 'maintenance';
 
 int getDBLength() {
   var box = Hive.box('$baseBox').length;
+  return box;
+}
+
+int getMaintLength() {
+  var box = Hive.box('$mt').length;
   return box;
 }
 
@@ -17,10 +25,22 @@ List getRawList() {
   return list;
 }
 
+List getRawMaintList() {
+  var box = Hive.box('$mt');
+  Map<dynamic, dynamic> raw = box.toMap();
+  List list = raw.values.toList();
+  return list;
+}
+
 void deleteEntry(int index) {
   var box = Hive.box('$baseBox');
   box.deleteAt(index);
   calcData();
+}
+
+void deleteEntryMaint(int index) {
+  var box = Hive.box('$mt');
+  box.deleteAt(index);
 }
 
 void safeNull() {

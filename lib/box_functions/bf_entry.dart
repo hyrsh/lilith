@@ -1,4 +1,5 @@
 import 'package:balthasar/obj_definition/base.dart';
+import 'package:balthasar/obj_definition/maintenance.dart';
 import 'package:balthasar/pages/dblist.dart';
 import 'package:balthasar/pages/startpage.dart';
 import 'package:hive/hive.dart';
@@ -6,6 +7,7 @@ import 'package:hive/hive.dart';
 const resultBox = 'results';
 const settingsBox = 'settings';
 const baseBox = 'base';
+const mt = 'maintenance';
 
 void sendData(String price, String volume, String distance) {
   DateTime cDate = DateTime.now().toLocal();
@@ -99,4 +101,10 @@ void calcInfoData() {
     res.put('yearlyspent', yearlyspent);
     res.put('yearlyvolume', yearlyvolume);
   }
+}
+
+void sendDataMaint(String date, String descr, String distance) {
+  var box = Hive.box('$mt');
+  Maintenance objMaint = Maintenance(date, descr, distance); //create Maintenance data type with given values
+  box.add(objMaint); //append bi to data box; we use "add" to rely on self-incrementing indices in Hive (we need inceremental indices for editing and calculating)
 }
